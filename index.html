@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Stiletto — Professional Profile V5.0</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <style>
+    :root{
+      --walnut-1: #2b1f19;
+      --walnut-2: #3a2923;
+      --gold: #d4af37;
+      --gold-bright: #f4d03f;
+      --muted: #bfaea3;
+      --glass: rgba(255,255,255,0.05);
+      --bg-dark: #0a0a0c;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,sans-serif;background:var(--bg-dark);color:var(--muted);overflow-x:hidden;}
+
+    /* --- Background & Layout --- */
+    .wrap{position:relative;min-height:100vh;display:flex;justify-content:center;align-items:center;background:radial-gradient(circle at 20% 30%, rgba(212,175,55,0.08), transparent 40%), radial-gradient(circle at 80% 70%, rgba(138,109,59,0.06), transparent 50%), linear-gradient(180deg,#0a0a0c, #12100e);padding:20px;}
+    
+    #particles-canvas{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;opacity:0.6;}
+
+    .card{position:relative;z-index:10;width:100%;max-width:1100px;display:grid;grid-template-columns:350px 1fr;border-radius:28px;backdrop-filter:blur(32px) saturate(200%);background:linear-gradient(145deg, rgba(25,20,18,0.9), rgba(15,12,10,0.85));border:1px solid rgba(212,175,55,0.25);box-shadow:0 30px 90px rgba(0,0,0,0.85), 0 0 1px rgba(212,175,55,0.5);overflow:hidden;animation:cardEntrance 0.8s cubic-bezier(0.16,1,0.3,1);}
+
+    @keyframes cardEntrance{from{opacity:0;transform:translateY(30px) scale(0.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+    /* --- Left Sidebar --- */
+    .left{padding:50px;background:linear-gradient(145deg, rgba(58,41,35,0.75), rgba(20,15,13,0.85));display:flex;flex-direction:column;align-items:center;gap:24px;border-right:1px solid rgba(255,255,255,0.08);text-align:center;position:relative;}
+
+    .badge{padding:6px 16px;border-radius:24px;font-weight:700;background:rgba(212,175,55,0.1);color:var(--gold-bright);border:1px solid rgba(212,175,55,0.3);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;}
+
+    .avatar{width:160px;height:160px;border-radius:50%;display:grid;place-items:center;background:#140f0d;border:3px solid rgba(212,175,55,0.25);box-shadow:0 10px 30px rgba(0,0,0,0.5);transition:0.4s ease;}
+    .avatar:hover{transform:scale(1.03);border-color:var(--gold);}
+
+    h1{font-family:'Playfair Display',serif;margin:10px 0 0;font-size:34px;color:var(--gold);letter-spacing:-0.5px;}
+    .meta{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;opacity:0.8;}
+
+    .roles{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:5px;}
+    .role-pill{background:rgba(0,0,0,0.4);padding:6px 12px;border-radius:6px;font-size:0.7rem;border:1px solid rgba(255,255,255,0.1);color:#e8dccd;}
+
+    .stats{margin-top:20px;text-align:left;font-size:0.85rem;line-height:1.8;color:#d4c4b8;width:100%;}
+    .stats strong{color:var(--gold);font-weight:600;display:inline-block;width:80px;}
+
+    /* Social Links (Updated to A tags) */
+    .socials{display:flex;gap:12px;justify-content:center;margin-top:auto;padding-top:25px;width:100%;border-top:1px solid rgba(255,255,255,0.08);}
+    .social{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);color:var(--muted);transition:0.3s;text-decoration:none;font-size:1.2rem;}
+    .social:hover{background:rgba(212,175,55,0.15);color:var(--gold-bright);transform:translateY(-3px);border-color:var(--gold);}
+
+    /* --- Right Content --- */
+    .right{padding:50px;display:flex;flex-direction:column;}
+
+    .intro{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:25px;flex-wrap:wrap;gap:15px;}
+    .intro .title{font-family:'Playfair Display',serif;font-size:28px;color:var(--gold);margin:0;line-height:1.3;}
+    .status-pill{display:flex;align-items:center;gap:8px;background:rgba(21,255,0,0.05);padding:8px 16px;border-radius:20px;border:1px solid rgba(21,255,0,0.2);color:#7fdb74;font-size:0.75rem;font-weight:700;text-transform:uppercase;}
+    .status-dot{width:6px;height:6px;background:#7fdb74;border-radius:50%;box-shadow:0 0 8px #7fdb74;animation:pulse 2s infinite;}
+
+    p.lead{line-height:1.7;font-size:1rem;color:#ccc;margin-bottom:30px;font-weight:300;}
+
+    /* Skills Grid */
+    .skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:15px;margin-bottom:35px;}
+    .skill{background:rgba(255,255,255,0.02);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);text-align:center;transition:0.3s;}
+    .skill:hover{border-color:var(--gold);transform:translateY(-5px);background:rgba(212,175,55,0.05);}
+    .skill h3{margin:0 0 5px;color:#f0e6dc;font-size:14px;}
+    .skill p{margin:0;font-size:11px;color:#888;}
+    .skill.ai{border-color:rgba(212,175,55,0.3);background:linear-gradient(145deg, rgba(212,175,55,0.08), transparent);}
+
+    /* Action Buttons */
+    .actions{display:flex;gap:15px;flex-wrap:wrap;}
+    .btn{padding:12px 24px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:transparent;color:var(--muted);font-weight:600;cursor:pointer;transition:0.3s;font-size:0.85rem;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center;gap:8px;}
+    .btn:hover{background:rgba(255,255,255,0.05);color:#fff;transform:translateY(-2px);}
+    .btn.primary{background:linear-gradient(135deg, rgba(212,175,55,0.25), rgba(212,175,55,0.05));border-color:rgba(212,175,55,0.4);color:var(--gold-bright);}
+    .btn.primary:hover{box-shadow:0 0 20px rgba(212,175,55,0.2);}
+
+    .footer-row{margin-top:auto;padding-top:20px;border-top:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between;font-size:11px;color:#666;}
+
+    /* --- MODAL FOR LINKS (The New Feature) --- */
+    .modal-overlay {
+      position: fixed; top:0; left:0; width:100%; height:100%;
+      background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
+      z-index: 1000; opacity:0; visibility: hidden; transition: all 0.4s;
+      display: flex; justify-content: center; align-items: center; padding: 20px;
+    }
+    .modal-overlay.active { opacity:1; visibility: visible; }
+    
+    .modal-card {
+      background: #12100e; width: 100%; max-width: 450px;
+      border: 1px solid var(--gold); border-radius: 20px;
+      padding: 30px; text-align: center;
+      transform: translateY(30px); transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+    }
+    .modal-overlay.active .modal-card { transform: translateY(0); }
+
+    .link-list { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+    .link-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 15px 20px; border-radius: 12px;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+      color: #e8dccd; text-decoration: none; font-weight: 500; transition: 0.3s;
+    }
+    .link-item:hover {
+      background: rgba(212,175,55,0.15); border-color: var(--gold);
+      transform: translateX(5px);
+    }
+    .close-modal {
+      margin-top: 20px; background: none; border: none; color: #666; 
+      cursor: pointer; font-size: 0.8rem; text-decoration: underline;
+    }
+
+    /* --- Mobile Responsiveness --- */
+    @media (max-width: 900px) {
+      .card { grid-template-columns: 1fr; max-width: 500px; overflow-y: auto; max-height: 90vh; }
+      .left { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 40px 20px; }
+      .right { padding: 30px 20px; }
+      .intro { flex-direction: column; }
+      .stats { text-align: center; }
+      .stats strong { display: inline; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrap">
+    <canvas id="particles-canvas"></canvas>
+    
+    <div class="card">
+      <div class="left">
+        <div class="badge">◆ Professional V5.0 ◆</div>
+        <div class="avatar">
+          <span style="font-family:'Playfair Display';font-size:60px;color:var(--gold);">S</span>
+        </div>
+        <div>
+            <h1>Stiletto</h1>
+            <div class="meta">Web Engineer & Storyteller</div>
+        </div>
+        <div class="roles">
+            <div class="role-pill">Full Stack</div>
+            <div class="role-pill">Video FX</div>
+            <div class="role-pill">AI workflows</div>
+        </div>
+        
+        <div class="stats">
+            <div><strong>Age:</strong> 19</div>
+            <div><strong>Base:</strong> Meru, Kenya 🇰🇪</div>
+            <div><strong>Exp:</strong> Actively learning</div>
+            <div><strong>Focus:</strong> High-End Web & AI</div>
+        </div>
+
+        <div class="socials">
+<a href="https://github.com/stilettodev" target="_blank" class="social"><i class="ph-fill ph-github-logo"></i></a>
+<a href="mailto:stiletto.dev@gmail.com" class="social"><i class="ph-fill ph-envelope"></i></a>
+<a href="https://x.com/stiletto_shell" target="_blank" class="social"><i class="ph-fill ph-x-logo"></i></a>
+        </div>
+      </div>
+
+      <div class="right">
+        <div class="intro">
+            <p class="title">Elite Digital Craftsmanship.<br>Future-Ready Logic.</p>
+            <div class="status-pill"><div class="status-dot"></div>Available for Hire</div>
+        </div>
+        
+        <p class="lead">
+          I'm <strong>Stiletto</strong>, I’m Stiletto, a 19-year-old Digital Architect based in Kenya 🇰🇪. I blend robust web development (Next.js, Cloud) with active learning in AI, Cybersecurity, and high-quality cinematic content.
+        </p>
+
+        <div class="skills">
+          <div class="skill"><h3>Frontend</h3><p>React • Next.js • TS</p></div>
+          <div class="skill"><h3>Video</h3><p>Premiere • After Effects</p></div>
+          <div class="skill ai"><h3>AI / LLM</h3><p>Integration • Automation</p></div>
+          <div class="skill"><h3>Backend</h3><p>Node • Python • SQL</p></div>
+        </div>
+
+        <div class="actions">
+          <a href="mailto:stiletto.dev@gmail.com" class="btn primary"><i class="ph-fill ph-paper-plane-tilt"></i> Hire Me</a>
+          
+          <button class="btn" onclick="toggleModal()"><i class="ph-fill ph-list-plus"></i> View Projects</button>
+          
+          <a href="https://your-portfolio-url.com" target="_blank" class="btn"><i class="ph-fill ph-file-pdf"></i> Resume</a>
+        </div>
+
+        <div class="footer-row">
+          <span>© 2025 Stiletto Digital</span>
+          <span id="clock">--:--:-- EAT</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="linksModal">
+    <div class="modal-card">
+      <h2 style="color:var(--gold);font-family:'Playfair Display';">Project Hub</h2>
+      <p style="font-size:0.9rem;color:#999;margin-bottom:20px;">Select a destination</p>
+      
+      <div class="link-list">
+        <a href="https://www.google.com" target="_blank" class="link-item">
+          <span>🎬 Cinematic Showreel</span>
+          <i class="ph-bold ph-arrow-right"></i>
+        </a>
+
+        <a href="#" target="_blank" class="link-item">
+          <span>💻 GitHub Repositories</span>
+          <i class="ph-bold ph-arrow-right"></i>
+        </a>
+
+        <a href="#" target="_blank" class="link-item">
+          <span>📝 My Tech Blog</span>
+          <i class="ph-bold ph-arrow-right"></i>
+        </a>
+      </div>
+
+      <button class="close-modal" onclick="toggleModal()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    /* --- 1. Clock Logic --- */
+    function updateClock() {
+      const now = new Date();
+      // Force Kenya Time (EAT)
+      const options = { timeZone: 'Africa/Nairobi', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+      document.getElementById('clock').innerText = now.toLocaleTimeString('en-GB', options) + " EAT";
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    /* --- 2. Modal Logic --- */
+    function toggleModal() {
+      const modal = document.getElementById('linksModal');
+      modal.classList.toggle('active');
+    }
+    // Close if clicked outside card
+    document.getElementById('linksModal').addEventListener('click', function(e) {
+      if (e.target === this) toggleModal();
+    });
+
+    /* --- 3. Particle Background Logic --- */
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    
+    let width, height;
+    const particles = [];
+    const particleCount = 60;
+
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.vx = (Math.random() - 0.5) * 0.5;
+        this.vy = (Math.random() - 0.5) * 0.5;
+        this.size = Math.random() * 2;
+        this.alpha = Math.random() * 0.5 + 0.1;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > width) this.vx *= -1;
+        if (this.y < 0 || this.y > height) this.vy *= -1;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(212, 175, 55, ${this.alpha})`; // Gold color
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle());
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+</body>
+</html>
